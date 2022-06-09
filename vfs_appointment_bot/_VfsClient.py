@@ -4,7 +4,7 @@ import time
 import logging
 import datetime
 
-from _TwilioClient import _TwilioClient
+#from _TwilioClient import _TwilioClient
 from _ConfigReader import _ConfigReader
 
 from selenium import webdriver
@@ -14,7 +14,7 @@ from selenium.common.exceptions import NoSuchElementException
 class _VfsClient:
 
     def __init__(self):
-        self._twilio_client = _TwilioClient()
+ #       self._twilio_client = _TwilioClient()
         self._config_reader = _ConfigReader()
 
     def _init_web_driver(self):
@@ -136,7 +136,8 @@ class _VfsClient:
         self._init_web_driver()
 
         # open the webpage
-        self._web_driver.get("https://visa.vfsglobal.com/ind/en/deu/login")
+     #   self._web_driver.get("https://visa.vfsglobal.com/ind/en/deu/login")
+        self._web_driver.get("https://visa.vfsglobal.com/rus/en/fra/login")
 
         self._login()
         self._validate_login()
@@ -146,11 +147,12 @@ class _VfsClient:
 
         if len(_message.text) != 0 and _message.text != "No appointment slots are currently available" and _message.text != "Currently No slots are available for selected category, please confirm waitlist\nTerms and Conditions":
             logging.info("Appointment slots available: {}".format(_message.text))
-            ts = time.time()
-            st = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
-            message = "{} at {}".format(_message.text, st)
-            self._twilio_client.send_message(message)
-            self._twilio_client.call()
+          # Here you will need to pass code related to iterating through appointment web form
+          #ts = time.time()
+          #  st = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+          #  message = "{} at {}".format(_message.text, st)
+          #  self._twilio_client.send_message(message)
+          #  self._twilio_client.call()
         else:
             logging.info("No slots available")
         # Close the browser
