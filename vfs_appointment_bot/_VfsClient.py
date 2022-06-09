@@ -133,6 +133,16 @@ class _VfsClient:
         return self._web_driver.find_element_by_xpath("//div[4]/div")
 
     def check_slot(self, visa_centre, category, sub_category):
+        _section_header = "Contact"
+        _France-Visas_Registration_Number = self._config_reader.read_prop(_section_header, "France-Visas_Registration_Number");
+        _First_Name = self._config_reader.read_prop(_section_header, "First_Name");
+        _Last_Name = self._config_reader.read_prop(_section_header, "Last_Name");
+        _Gender = self._config_reader.read_prop(_section_header, "Gender");
+        _Date_of_Birth = self._config_reader.read_prop(_section_header, "Date_of_Birth");
+        _Current_Nationality = self._config_reader.read_prop(_section_header, "Current_Nationality");
+        _Passport_Number = self._config_reader.read_prop(_section_header, "Passport_Number");
+        _Contact_number = self._config_reader.read_prop(_section_header, "Contact_number");
+        _PersEmail = self._config_reader.read_prop(_section_header, "PersEmail");
         self._init_web_driver()
 
         # open the webpage
