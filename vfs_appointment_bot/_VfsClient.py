@@ -143,6 +143,7 @@ class _VfsClient:
         _Passport_Number = self._config_reader.read_prop(_section_header, "Passport_Number");
         _Contact_number = self._config_reader.read_prop(_section_header, "Contact_number");
         _PersEmail = self._config_reader.read_prop(_section_header, "PersEmail");
+        _CountryCode = 7;
         self._init_web_driver()
 
         # open the webpage
@@ -157,6 +158,64 @@ class _VfsClient:
 
         if len(_message.text) != 0 and _message.text != "No appointment slots are currently available" and _message.text != "Currently No slots are available for selected category, please confirm waitlist\nTerms and Conditions":
             logging.info("Appointment slots available: {}".format(_message.text))
+            _continue_button = self._web_driver.find_element_by_xpath("/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[2]/button")
+            _continue_button.click()
+            time.sleep(10)
+            _regnumber_input = self._web_driver.find_element_by_xpath("//*[@id="mat-input-11"]")
+            _regnumber_input.send_keys(_France-Visas_Registration_Number)
+            _fname_input = self._web_driver.find_element_by_xpath("//input[@id='mat-input-12']")
+            _fname_input.send_keys(_First_Name)
+            _lname_input = self._web_driver.find_element_by_xpath("//input[@id='mat-input-13']")
+            _lname_input.send_keys(_Last_Name)
+            
+            _gender_dropdown = self._web_driver.find_element_by_xpath("//div[@id='mat-select-value-27']")
+     
+            self._web_driver.execute_script("arguments[0].click();", _gender_dropdown)
+            time.sleep(5)
+        
+            try:
+            _gender_dropdown = self._web_driver.find_element_by_xpath(
+                "//mat-option[starts-with(@id,'mat-option-')]/span[contains(text(), '{}')]".format(_Gender)
+            )
+             except NoSuchElementException:
+                raise Exception("Gender not found: {}".format(_Gender))
+        
+            self._web_driver.execute_script("arguments[0].click();", _gender_dropdown)
+            # logging.debug("Sub-Cat: " + _subcategory.text)
+                time.sleep(5)
+            _dob_input = self._web_driver.find_element_by_xpath("//input[@id='dateOfBirth']")
+            _dob_input.send_keys(_Date_of_Birth)
+            
+            _nationality_dropdown = self._web_driver.find_element_by_xpath("//div[@id='mat-select-value-29']")
+     
+            self._web_driver.execute_script("arguments[0].click();", _nationality_dropdown)
+            time.sleep(5)
+        
+            try:
+            _nationality_dropdown = self._web_driver.find_element_by_xpath(
+                "//mat-option[starts-with(@id,'mat-option-')]/span[contains(text(), '{}')]".format(_Current_Nationality)
+            )
+             except NoSuchElementException:
+                raise Exception("Nationality not found: {}".format(_Current_Nationality))
+        
+            self._web_driver.execute_script("arguments[0].click();", _nationality_dropdown)
+            # logging.debug("Sub-Cat: " + _subcategory.text)
+                time.sleep(5)
+            _passport_input = self._web_driver.find_element_by_xpath("//*[@id="mat-input-14"]")
+            _passport_input.send_keys(_Passport_Number)
+            _ccode_input = self._web_driver.find_element_by_xpath("//input[@id='mat-input-15']")
+            _ccode_input.send_keys(_CountryCode)
+            _pnumber_input = self._web_driver.find_element_by_xpath("//input[@id='mat-input-16']")
+            _pnumber_input.send_keys(_Contact_number)
+            _cemail_input = self._web_driver.find_element_by_xpath("//input[@id='mat-input-17']")
+            _cemail_input.send_keys(_PersEmail)
+            
+            self._web_driver.save_screenshot('/Users/dsarychev/Botscreens/appdata.jpg')
+            
+            _save_button = self._web_driver.find_element_by_xpath("/html/body/app-root/div/app-applicant-details/section/mat-card[2]/app-dynamic-form/div/div/app-dynamic-control/div/div/div[2]/button")
+            _save_button.click()
+            
+            
           # Here you will need to pass code related to iterating through appointment web form
           #ts = time.time()
           #  st = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
