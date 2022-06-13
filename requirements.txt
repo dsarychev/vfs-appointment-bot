@@ -1,2 +1,5 @@
 selenium==3.141.0
-
+numpy
+pandas
+sqlalchemy
+openpyxl
